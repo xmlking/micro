@@ -1,6 +1,6 @@
 # Micro
 
-> Custom build for `microhq/micro:latest` to use with k8s.
+> Custom build for `microhq/micro:latest` with [static selector go-plugins](https://github.com/micro/go-plugins/tree/master/client/selector/static) and [cors go-plugins](https://github.com/micro/go-plugins/tree/master/micro/cors)  to use with k8s.
 
 > To use as a `REST Gateway` for gRPC microservices. CORS enabled.
 
