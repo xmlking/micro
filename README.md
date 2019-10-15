@@ -1,38 +1,75 @@
 # Micro
 
-> Custom build for `microhq/micro:kubernetes` to use with k8s.
+> Custom build for `microhq/micro:latest` to use with k8s.
 
 > To use as a `REST Gateway` for gRPC microservices. CORS enabled.
 
+## Build
+
+```bash
+go build -o build/ ./cmd/...
+# build and install micro-cli to ~/go/bin
+go install ./cmd/micro/...
+```
+
+## Test
+
+```bash
+# health checking with micro. use correct target service gRPC port below
+micro health --check_service=account-srv --check_address=0.0.0.0:55493
+micro --selector static  call 10.60.1.101:8080 Debug.Health
+```
+
+## Run
+
+```bash
+make run-micro-cmd ARGS="api --enable_rpc=true"
+# with plugins (cors, kubernetes )
+go run cmd/micro/main.go cmd/micro/plugin.go  api --enable_rpc=true
+# without plugins
+go run cmd/micro/main.go  api --enable_rpc=true
+```
+
 ## Docker
+
+> from project root directory, run following commands.
 
 ### Docker Build
 
+> simple
+
+```bash
+make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit
+```
+
+> TLDR
+
 ```bash
 # build
-VERSION=kubernetes
-BUILD_PKG=./cmd/micro
-IMANGE_NAME=xmlking/micro
+VERSION=0.1.0-SNAPSHOT
+# DOCKER_REGISTRY=gcr.io
+DOCKER_CONTEXT_PATH=xmlking
 docker build --rm \
 --build-arg VERSION=$VERSION \
---build-arg BUILD_PKG=$BUILD_PKG \
---build-arg IMANGE_NAME=$IMANGE_NAME \
+--build-arg DOCKER_REGISTRY=${DOCKER_REGISTRY} \
+--build-arg DOCKER_CONTEXT_PATH=${DOCKER_CONTEXT_PATH} \
+--build-arg VCS_REF=$(git rev-parse --short HEAD) \
 --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
--t $IMANGE_NAME .
+-t ${DOCKER_REGISTRY:+${DOCKER_REGISTRY}/}${DOCKER_CONTEXT_PATH}/micro:${VERSION} -f cmd/micro/Dockerfile .
 
-# tag
-docker tag $IMANGE_NAME $IMANGE_NAME:$VERSION
+IMANGE_NAME=${DOCKER_REGISTRY:+${DOCKER_REGISTRY}/}${DOCKER_CONTEXT_PATH}/micro:${VERSION}
 
 # push
-docker push $IMANGE_NAME:$VERSION
-docker push $IMANGE_NAME:"latest"
+docker push $IMANGE_NAME
 
 # check
-docker inspect  $IMANGE_NAME:$VERSION
+docker inspect  $IMANGE_NAME
 # remove temp images after build
 docker image prune -f
-# Remove all untagged images
-docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
+# Remove dangling images
+docker rmi $(docker images -f "dangling=true" -q)
+# Remove images tagged with vendor=sumo
+docker rmi $(docker images -f "label=org.label-schema.vendor=sumo"  -q)
 ```
 
 ### Docker Run
@@ -61,3 +98,7 @@ CORS_ALLOWED_HEADERS="Authorization,Content-Type"
 CORS_ALLOWED_ORIGINS="http://localhost:4200,https://api.kashmora.com"
 CORS_ALLOWED_METHODS="POST,GET"
 ```
+
+### Ref
+
+<https://micro.mu/docs/go-grpc.html>
