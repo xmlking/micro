@@ -36,10 +36,12 @@ go run cmd/micro/main.go  api --enable_rpc=true
 
 ### Docker Build
 
-> simple
+> Simple
 
 ```bash
 make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit
+# change version
+docker push docker.pkg.github.com/xmlking/micro-starter-kit/micro:v1.11.3
 ```
 
 > TLDR
@@ -82,13 +84,6 @@ docker run -it \
 -e MICRO_BROKER_ADDRESS=0.0.0.0:10001 \
 -e MICRO_REGISTRY=mdns \
 -p 8080:8080 -p 10001:10001 $IMANGE_NAME api
-```
-
-## Environment variables
-
-```bash
-MICRO_REGISTRY="kubernetes"
-MICRO_SELECTOR="static"
 ```
 
 ```bash
