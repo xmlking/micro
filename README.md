@@ -1,6 +1,6 @@
 # Micro
 
-> Custom build for `microhq/micro:latest` with [static selector go-plugins](https://github.com/micro/go-plugins/tree/master/client/selector/static) and [cors go-plugins](https://github.com/micro/go-plugins/tree/master/micro/cors)  to use with k8s.
+> Custom build for `micro/micro:latest` with [static selector go-plugins](https://github.com/micro/go-plugins/tree/master/client/selector/static) and [cors go-plugins](https://github.com/micro/go-plugins/tree/master/micro/cors)  to use with k8s.
 
 > To use as a `REST Gateway` for gRPC microservices. CORS enabled.
 
@@ -39,12 +39,12 @@ go run cmd/micro/main.go  api --enable_rpc=true
 > Simple
 
 ```bash
-make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit
-# change version
-docker push docker.pkg.github.com/xmlking/micro-starter-kit/micro:v1.11.3
+make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit VERSION=v1.12.0
+# push
+docker push docker.pkg.github.com/xmlking/micro-starter-kit/micro:v1.12.0
 ```
 
-> TLDR
+> TL;DR
 
 ```bash
 # build
