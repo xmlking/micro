@@ -6,9 +6,9 @@ import (
 	"github.com/micro/go-micro/server"
 	"github.com/micro/micro/cmd"
 
+	bkr "github.com/micro/go-micro/broker/http"
 	cli "github.com/micro/go-micro/client/grpc"
 	srv "github.com/micro/go-micro/server/grpc"
-	bkr "github.com/micro/go-micro/broker/http"
 )
 
 func main() {
@@ -18,4 +18,5 @@ func main() {
 	server.DefaultServer = srv.NewServer()
 
 	cmd.Init()
+
 }

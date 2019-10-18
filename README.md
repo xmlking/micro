@@ -1,6 +1,6 @@
 # Micro
 
-> Custom build for `micro/micro:latest` with [static selector go-plugins](https://github.com/micro/go-plugins/tree/master/client/selector/static) and [cors go-plugins](https://github.com/micro/go-plugins/tree/master/micro/cors)  to use with k8s.
+> Custom build for `micro/micro:latest` with [static selector go-plugins](https://github.com/micro/go-plugins/tree/master/client/selector/static) and [cors go-plugins](https://github.com/micro/go-plugins/tree/master/micro/cors) to use with k8s.
 
 > To use as a `REST Gateway` for gRPC microservices. CORS enabled.
 
@@ -28,6 +28,25 @@ make run-micro-cmd ARGS="api --enable_rpc=true"
 go run cmd/micro/main.go cmd/micro/plugin.go  api --enable_rpc=true
 # without plugins
 go run cmd/micro/main.go  api --enable_rpc=true
+```
+
+## Using googlepubsub as broker
+
+> overwrite plugin options via Environment variables `MICRO_(PLUGIN)_(OPTION)`
+
+In Terminal 1, run
+
+```bash
+# start pubsub emulator
+gcloud beta emulators pubsub start
+```
+
+In Terminal 2, run `micro` cli
+
+````bash
+export PUBSUB_EMULATOR_HOST=localhost:8432
+export PUBSUB_PROJECT_ID=my-project-id
+MICRO_GOOGLEPUBSUB_PROJECT_ID=my_project_id MICRO_BROKER=googlepubsub make run-micro-cmd ARGS="api --enable_rpc=true"
 ```
 
 ## Docker
@@ -97,3 +116,4 @@ CORS_ALLOWED_METHODS="POST,GET"
 ### Ref
 
 <https://micro.mu/docs/go-grpc.html>
+````
