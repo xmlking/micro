@@ -39,7 +39,7 @@ go run cmd/micro/main.go  api --enable_rpc=true
 > Simple
 
 ```bash
-make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit VERSION=v1.12.0
+make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit VERSION=v1.13.0
 # push
 docker push docker.pkg.github.com/xmlking/micro-starter-kit/micro:v1.12.0
 ```

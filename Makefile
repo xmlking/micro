@@ -24,7 +24,7 @@ BUILD_FLAGS = $(shell govvv -flags -version $(VERSION) -pkg $(VERSION_PACKAGE))
 # $(warning VERSION = $(VERSION), HAS_GOVVV = $(HAS_GOVVV), HAS_KO = $(HAS_KO))
 # $(warning VERSION_PACKAGE = $(VERSION_PACKAGE), BUILD_FLAGS = $(BUILD_FLAGS))
 
-.PHONY: clean update_deps docker docker_clean docker_push  start_deploy
+.PHONY: clean update_deps build build-% run run-%  docker docker_clean docker_push  start_deploy
 
 start_deploy:
 	@curl -H "Content-Type: application/json" \
@@ -41,6 +41,32 @@ clean:
 update_deps:
 	go mod verify
 	go mod tidy
+
+build build-%:
+ifndef HAS_GOVVV
+	$(error "No govvv in PATH". Please install via 'go install github.com/ahmetb/govvv'")
+endif
+	@if [ -z $(TARGET) ]; then \
+		for type in $(TYPES); do \
+			echo "Building Type: $${type}..."; \
+			for _target in $${type}/*/; do \
+				temp=$${_target%%/}; target=$${temp#*/}; \
+				echo "\tBuilding $${target}-$${type}"; \
+				CGO_ENABLED=0 GOOS=linux go build -o build/$${target}-$${type} -a -trimpath -ldflags "-w -s ${BUILD_FLAGS}" ./$${type}/$${target}; \
+			done \
+		done \
+	else \
+		echo "Building ${TARGET}-${TYPE}"; \
+		go build -o  build/${TARGET}-${TYPE} -a -trimpath -ldflags "-w -s ${BUILD_FLAGS}" ./${TYPE}/${TARGET}; \
+	fi
+
+
+run run-%:
+	@if [ -z $(TARGET) ]; then \
+		echo "no  TARGET. example usage: make test TARGET=account"; \
+	else \
+		go run  ./${TYPE}/${TARGET} ${ARGS}; \
+	fi
 
 docker:
 	echo "Building micro image..."; \

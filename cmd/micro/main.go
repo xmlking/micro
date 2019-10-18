@@ -8,7 +8,7 @@ import (
 
 	cli "github.com/micro/go-micro/client/grpc"
 	srv "github.com/micro/go-micro/server/grpc"
-	bkr "github.com/micro/go-plugins/broker/grpc"
+	bkr "github.com/micro/go-micro/broker/http"
 )
 
 func main() {
