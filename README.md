@@ -58,9 +58,9 @@ MICRO_GOOGLEPUBSUB_PROJECT_ID=my_project_id MICRO_BROKER=googlepubsub make run-m
 > Simple
 
 ```bash
-make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit VERSION=v1.13.0
+make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit VERSION=v1.13.1
 # push
-docker push docker.pkg.github.com/xmlking/micro-starter-kit/micro:v1.12.0
+docker push docker.pkg.github.com/xmlking/micro-starter-kit/micro:v1.13.1
 ```
 
 > TL;DR
