@@ -19,5 +19,5 @@ func init() {
 	// os.Setenv("MICRO_SELECTOR", "static")
 
 	// setup cors plugin
-	plugin.Register(cors.NewPlugin())
+	_ = plugin.Register(cors.NewPlugin())
 }

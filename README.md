@@ -1,8 +1,10 @@
 # Micro
 
-> Custom build for `micro/micro:latest` with [static selector go-plugins](https://github.com/micro/go-plugins/tree/master/client/selector/static) and [cors go-plugins](https://github.com/micro/go-plugins/tree/master/micro/cors) to use with k8s.
+> Custom build for `micro/micro:latest` with
 
-> To use as a `REST Gateway` for gRPC microservices. CORS enabled.
+- [static selector go-plugins](https://github.com/micro/go-plugins/tree/master/client/selector/static) to use with k8s e2e testing.
+- [cors go-plugins](https://github.com/micro/go-plugins/tree/master/micro/cors) to use as a `REST Gateway` for gRPC microservices. CORS enabled.
+- [googlepubsub go-plugins](https://github.com/micro/go-plugins/tree/master/broker/googlepubsub) optionally, use `googlepubsub` as broker, along with micro-cli. i.e., `micro --broker=googlepubsub`
 
 ## Build
 
