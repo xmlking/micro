@@ -46,9 +46,12 @@ gcloud beta emulators pubsub start
 In Terminal 2, run `micro` cli
 
 ````bash
+# PUBSUB_EMULATOR_HOST is optional (only needed in dev mode)
 export PUBSUB_EMULATOR_HOST=localhost:8432
 export PUBSUB_PROJECT_ID=my-project-id
-MICRO_GOOGLEPUBSUB_PROJECT_ID=my_project_id MICRO_BROKER=googlepubsub make run-micro-cmd ARGS="api --enable_rpc=true"
+# GOOGLE_APPLICATION_CREDENTIALS is optional (only needed in prod mode)
+export GOOGLE_APPLICATION_CREDENTIALS=~/path/your_project_credentials.json
+MICRO_BROKER=googlepubsub make run-micro-cmd ARGS="api --enable_rpc=true"
 ```
 
 ## Docker
