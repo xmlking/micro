@@ -70,9 +70,9 @@ make run-emailer ARGS="--server_address=localhost:8080"
 > Simple
 
 ```bash
-make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit VERSION=v1.13.1
+make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit VERSION=v1.13.2
 # push
-docker push docker.pkg.github.com/xmlking/micro-starter-kit/micro:v1.13.1
+docker push docker.pkg.github.com/xmlking/micro-starter-kit/micro:v1.13.2
 ```
 
 > TL;DR
