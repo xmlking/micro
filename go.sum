@@ -371,11 +371,11 @@ github.com/mholt/certmagic v0.7.5/go.mod h1:91uJzK5K8IWtYQqTi5R2tsxV1pCde+wdGfaR
 github.com/micro/cli v0.2.0/go.mod h1:jRT9gmfVKWSS6pkKcXQ8YhUyj6bzwxK8Fp5b0Y7qNnk=
 github.com/micro/go-micro v1.11.0/go.mod h1:IFNDLkidhgnolhx+r3Lmx73XGNFgiZ7qM7l+rg8MnU0=
 github.com/micro/go-micro v1.12.0/go.mod h1:dbMgBQRxpTdBZPfr+sUKZsw7oY/7pf8TaM3Ud0/sDus=
-github.com/micro/go-micro v1.13.1/go.mod h1:dbMgBQRxpTdBZPfr+sUKZsw7oY/7pf8TaM3Ud0/sDus=
+github.com/micro/go-micro v1.13.2/go.mod h1:dbMgBQRxpTdBZPfr+sUKZsw7oY/7pf8TaM3Ud0/sDus=
 github.com/micro/go-plugins v1.3.1-0.20191017220923-398865a27ffd/go.mod h1:H+vlWmgb2izlV8W1ATSyzCqXuHT82FxiR2kBE4f1wxs=
 github.com/micro/mdns v0.3.0/go.mod h1:KJ0dW7KmicXU2BV++qkLlmHYcVv7/hHnbtguSWt9Aoc=
 github.com/micro/micro v1.11.0/go.mod h1:EgjpA5oZwRSItsVumvTvCTw0jyZLMNu4JP2NHuWPe8w=
-github.com/micro/micro v1.13.1/go.mod h1:IfMmH2ZDjFG1ZI/AhJ0YDFCJIM+s9m8gIhJNOeYb7SI=
+github.com/micro/micro v1.13.2/go.mod h1:jwiJdMYEbd0sBbz+ABTKlm3nv6bgvEmlhZ5KIn7Q8Vs=
 github.com/miekg/dns v1.0.14/go.mod h1:W1PPwlIAgtquWBMBEV9nkV9Cazfe8ScdGz/Lj7v3Nrg=
 github.com/miekg/dns v1.1.3/go.mod h1:W1PPwlIAgtquWBMBEV9nkV9Cazfe8ScdGz/Lj7v3Nrg=
 github.com/miekg/dns v1.1.15/go.mod h1:W1PPwlIAgtquWBMBEV9nkV9Cazfe8ScdGz/Lj7v3Nrg=
