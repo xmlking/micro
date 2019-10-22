@@ -36,19 +36,29 @@ go run cmd/micro/main.go  api --enable_rpc=true
 
 > overwrite plugin options via Environment variables `MICRO_(PLUGIN)_(OPTION)`
 
-In Terminal 1, run
+In Terminal 1, Start Google PubSub emulator
 
 ```bash
 # start pubsub emulator
-gcloud beta emulators pubsub start
+export PROJECT_ID=my-project-id
+gcloud beta emulators pubsub start --project=$PROJECT_ID --host-port=localhost:8085
+# Create topic `emailersrv` (optional)
+# Note: First time when you run accountsrv service, it will automatically create topic
+gcloud pubsub topics create emailersrv
 ```
 
-In Terminal 2, run `micro` cli
+In Terminal 2, run Emailer Service
 
 ````bash
-export PUBSUB_EMULATOR_HOST=localhost:8432
-export PUBSUB_PROJECT_ID=my-project-id
-MICRO_GOOGLEPUBSUB_PROJECT_ID=my_project_id MICRO_BROKER=googlepubsub make run-micro-cmd ARGS="api --enable_rpc=true"
+export PROJECT_ID=my-project-id
+# PUBSUB_EMULATOR_HOST for Dev
+$(gcloud beta emulators pubsub env-init)
+export PUBSUB_EMULATOR_HOST=localhost:8085
+
+# set GOOGLE_APPLICATION_CREDENTIALS for Prod
+# export GOOGLE_APPLICATION_CREDENTIALS=~/path/your_project_credentials.json
+export MICRO_BROKER=googlepubsub
+make run-emailer ARGS="--server_address=localhost:8080"
 ```
 
 ## Docker
