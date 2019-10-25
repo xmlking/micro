@@ -49,7 +49,7 @@ gcloud pubsub topics create emailersrv
 
 In Terminal 2, run Emailer Service
 
-````bash
+```bash
 export PROJECT_ID=my-project-id
 # PUBSUB_EMULATOR_HOST for Dev
 $(gcloud beta emulators pubsub env-init)
@@ -128,4 +128,4 @@ CORS_ALLOWED_METHODS="POST,GET"
 ### Ref
 
 <https://micro.mu/docs/go-grpc.html>
-````
+
