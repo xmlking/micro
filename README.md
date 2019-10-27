@@ -9,9 +9,9 @@
 ## Build
 
 ```bash
-go build -o build/ ./cmd/...
+go build -o build/ ./...
 # build and install micro-cli to ~/go/bin
-go install ./cmd/micro/...
+go install ./...
 ```
 
 ## Test
@@ -25,11 +25,10 @@ micro --selector static  call 10.60.1.101:8080 Debug.Health
 ## Run
 
 ```bash
-make run-micro-cmd ARGS="api --enable_rpc=true"
 # with plugins (cors, kubernetes )
-go run cmd/micro/main.go cmd/micro/plugin.go  api --enable_rpc=true
+go run main.go plugin.go  api --enable_rpc=true
 # without plugins
-go run cmd/micro/main.go  api --enable_rpc=true
+go run main.go  api --enable_rpc=true
 ```
 
 ## Using googlepubsub as broker
@@ -70,9 +69,9 @@ make run-emailer ARGS="--server_address=localhost:8080"
 > Simple
 
 ```bash
-make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit VERSION=v1.13.2
+make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit VERSION=v1.14.0
 # push
-docker push docker.pkg.github.com/xmlking/micro-starter-kit/micro:v1.13.2
+docker push docker.pkg.github.com/xmlking/micro-starter-kit/micro:v1.14.0
 ```
 
 > TL;DR
@@ -88,7 +87,7 @@ docker build --rm \
 --build-arg DOCKER_CONTEXT_PATH=${DOCKER_CONTEXT_PATH} \
 --build-arg VCS_REF=$(git rev-parse --short HEAD) \
 --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
--t ${DOCKER_REGISTRY:+${DOCKER_REGISTRY}/}${DOCKER_CONTEXT_PATH}/micro:${VERSION} -f cmd/micro/Dockerfile .
+-t ${DOCKER_REGISTRY:+${DOCKER_REGISTRY}/}${DOCKER_CONTEXT_PATH}/micro:${VERSION} .
 
 IMANGE_NAME=${DOCKER_REGISTRY:+${DOCKER_REGISTRY}/}${DOCKER_CONTEXT_PATH}/micro:${VERSION}
 

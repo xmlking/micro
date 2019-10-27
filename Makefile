@@ -13,7 +13,7 @@ DOCKER_CONTEXT_PATH 			:= xmlking
 
 # Type of service e.g api, fnc, srv, web (default: "srv")
 TYPE = $(or $(word 2,$(subst -, ,$*)), srv)
-override TYPES:= api srv
+override TYPES:= srv
 # Target for running the action
 TARGET = $(word 1,$(subst -, ,$*))
 
@@ -37,46 +37,20 @@ clean:
 	@echo "Deleting build/micro";
 	@rm -f build/micro;
 
-
 update_deps:
 	go mod verify
 	go mod tidy
 
-build build-%:
-ifndef HAS_GOVVV
-	$(error "No govvv in PATH". Please install via 'go install github.com/ahmetb/govvv'")
-endif
-	@if [ -z $(TARGET) ]; then \
-		for type in $(TYPES); do \
-			echo "Building Type: $${type}..."; \
-			for _target in $${type}/*/; do \
-				temp=$${_target%%/}; target=$${temp#*/}; \
-				echo "\tBuilding $${target}-$${type}"; \
-				CGO_ENABLED=0 GOOS=linux go build -o build/$${target}-$${type} -a -trimpath -ldflags "-w -s ${BUILD_FLAGS}" ./$${type}/$${target}; \
-			done \
-		done \
-	else \
-		echo "Building ${TARGET}-${TYPE}"; \
-		go build -o  build/${TARGET}-${TYPE} -a -trimpath -ldflags "-w -s ${BUILD_FLAGS}" ./${TYPE}/${TARGET}; \
-	fi
-
-
-run run-%:
-	@if [ -z $(TARGET) ]; then \
-		echo "no  TARGET. example usage: make test TARGET=account"; \
-	else \
-		go run  ./${TYPE}/${TARGET} ${ARGS}; \
-	fi
-
 docker:
 	echo "Building micro image..."; \
-	docker build --rm \
+	DOCKER_BUILDKIT=1 docker build --rm \
+	--build-arg BUILDKIT_INLINE_CACHE=1 \
 	--build-arg VERSION=$(VERSION) \
 	--build-arg DOCKER_REGISTRY=${DOCKER_REGISTRY} \
 	--build-arg DOCKER_CONTEXT_PATH=${DOCKER_CONTEXT_PATH} \
 	--build-arg VCS_REF=$(shell git rev-parse --short HEAD) \
 	--build-arg BUILD_DATE=$(shell date +%FT%T%Z) \
-	-t $${DOCKER_REGISTRY:+${DOCKER_REGISTRY}/}${DOCKER_CONTEXT_PATH}/micro:${VERSION} -f Dockerfile .;
+	-t $${DOCKER_REGISTRY:+${DOCKER_REGISTRY}/}${DOCKER_CONTEXT_PATH}/micro:${VERSION} .;
 
 
 docker_clean:

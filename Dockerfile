@@ -36,7 +36,7 @@ RUN go mod download
 COPY ./ ./
 
 # Build the executable to `/micro`. Mark the build as statically linked.
-RUN go build -a -o /micro ./cmd/micro/main.go ./cmd/micro/plugin.go
+RUN go build -a -o /micro ./main.go ./plugin.go
 
 # Final stage: the running container.
 FROM scratch AS final
