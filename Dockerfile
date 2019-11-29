@@ -1,21 +1,8 @@
-# Accept the Go version for the image to be set as a build argument.
-# Set default to Go v1.13
-ARG GO_VERSION=1.13
+# Accept the Go Micro version for the image to be set as a build argument.
+ARG GO_MICRO_VERSION=latest
 
 # First stage: build the executable.
-FROM golang:${GO_VERSION}-alpine AS builder
-
-# Create the user and group files that will be used in the running container to
-# run the process as an unprivileged user.
-RUN mkdir /user && \
-  echo 'nobody:x:65534:65534:nobody:/:' > /user/passwd && \
-  echo 'nobody:x:65534:' > /user/group
-
-# Install the Certificate-Authority certificates for the app to be able to make
-# calls to HTTPS endpoints.
-# Git is required for fetching the dependencies.
-RUN apk add --no-cache ca-certificates git && \
-  rm -rf /var/cache/apk/* /tmp/*
+FROM micro/go-micro:${GO_MICRO_VERSION} AS builder
 
 # Set the environment variables for the go command:
 # * CGO_ENABLED=0 to build a statically-linked executable
@@ -42,7 +29,7 @@ RUN go build -a -o /micro ./main.go ./plugin.go
 FROM scratch AS final
 
 # copy 1 MiB busybox executable
-COPY --from=busybox:1.31.0 /bin/busybox /bin/busybox
+COPY --from=busybox:1.31.1 /bin/busybox /bin/busybox
 
 # Import the user and group files from the first stage.
 COPY --from=builder /user/group /user/passwd /etc/

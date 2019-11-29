@@ -69,9 +69,10 @@ make run-emailer ARGS="--server_address=localhost:8080"
 > Simple
 
 ```bash
-make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit VERSION=v1.16.0
+export VERSION=v1.17.1
+make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit VERSION=$VERSION GO_MICRO_VERSION=$VERSION
 # push
-docker push docker.pkg.github.com/xmlking/micro-starter-kit/micro:v1.16.0
+docker push docker.pkg.github.com/xmlking/micro-starter-kit/micro:$VERSION
 ```
 
 > TL;DR
@@ -127,4 +128,3 @@ CORS_ALLOWED_METHODS="POST,GET"
 ### Ref
 
 <https://micro.mu/docs/go-grpc.html>
-
