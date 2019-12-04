@@ -19,7 +19,11 @@ go install ./...
 ```bash
 # health checking with micro. use correct target service gRPC port below
 micro health --check_service=account-srv --check_address=0.0.0.0:55493
+# when backend is TLS enabled use INSECURE_SKIP_VERIFY=true
+INSECURE_SKIP_VERIFY=true micro health --check_service=account-srv --check_address=0.0.0.0:55493
 micro --selector static  call 10.60.1.101:8080 Debug.Health
+# when backend is TLS enabled use INSECURE_SKIP_VERIFY=true
+INSECURE_SKIP_VERIFY=true micro call 10.60.1.101:8080 Debug.Health
 ```
 
 ## Run
@@ -69,7 +73,7 @@ make run-emailer ARGS="--server_address=localhost:8080"
 > Simple
 
 ```bash
-export VERSION=v1.17.1
+export VERSION=v1.17.2
 make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit VERSION=$VERSION GO_MICRO_VERSION=$VERSION
 # push
 docker push docker.pkg.github.com/xmlking/micro-starter-kit/micro:$VERSION
