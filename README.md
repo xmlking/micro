@@ -73,7 +73,7 @@ make run-emailer ARGS="--server_address=localhost:8080"
 > Simple
 
 ```bash
-export VERSION=v1.17.2
+export VERSION=v1.18.0
 make docker DOCKER_REGISTRY=docker.pkg.github.com DOCKER_CONTEXT_PATH=xmlking/micro-starter-kit VERSION=$VERSION GO_MICRO_VERSION=$VERSION
 # push
 docker push docker.pkg.github.com/xmlking/micro-starter-kit/micro:$VERSION
